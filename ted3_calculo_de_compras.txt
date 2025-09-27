@@ -1,0 +1,56 @@
+function calcularTotal(precoUnitario, quantidade) {
+    return precoUnitario * quantidade;
+}
+
+
+function aplicarDesconto(valorTotal) {
+    if (valorTotal > 100) {
+        // Aplica 10% de desconto (multiplica por 0.9)
+        const valorComDesconto = valorTotal * 0.90;
+        return valorComDesconto;
+    } else {
+        // Sem desconto
+        return valorTotal;
+    }
+}
+
+function exibirResumo(valorAntesDesconto, valorFinal) {
+    
+    const formatoMoeda = (valor) => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    console.log("=========================================");
+    console.log("          Comprinhas da shoppe             ");
+    console.log("=========================================");
+    console.log(`Valor Total (antes do desconto): ${formatoMoeda(valorAntesDesconto)}`);
+
+    if (valorAntesDesconto !== valorFinal) {
+        const valorDesconto = valorAntesDesconto - valorFinal;
+        console.log(`Desconto aplicado (10%):           ${formatoMoeda(valorDesconto)}`);
+    } else {
+        console.log(`Desconto aplicado:                  ${formatoMoeda(0)}`);
+    }
+
+    console.log("-----------------------------------------");
+    console.log(`saldo de compra (com desconto sendo usado): ${formatoMoeda(valorFinal)}`);
+    console.log("=========================================");
+}
+const precoInput = prompt("Digite o preço unitário do produto (ex: 25.50):");
+const preco = parseFloat(precoInput);
+
+
+const quantidadeInput = prompt("Digite a quantidade comprada (ex: 4):");
+const quantidade = parseInt(quantidadeInput);
+
+
+if (isNaN(preco) || isNaN(quantidade) || preco <= 0 || quantidade <= 0) {
+    console.error("Erro: Por favor, digite valores numéricos válidos e positivos para preço e quantidade.");
+} else {
+    
+    const valorTotalBruto = calcularTotal(preco, quantidade);
+
+     Aplica o desconto
+    const valorTotalLiquido = aplicarDesconto(valorTotalBruto);
+
+    Exibe o resumo final
+    exibirResumo(valorTotalBruto, valorTotalLiquido);
+}
